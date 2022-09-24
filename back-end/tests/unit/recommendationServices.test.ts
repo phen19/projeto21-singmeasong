@@ -188,7 +188,7 @@ describe("POST: downvote recommendations", () => {
       .spyOn(recommendationRepository, "updateScore")
       .mockResolvedValue(downvoteRec);
 
-    jest.spyOn(recommendationRepository, "remove").mockResolvedValue(null);
+    jest.spyOn(recommendationRepository, "remove").mockResolvedValue(undefined);
 
     await recommendationService.downvote(recommendation.id);
     expect(recommendationRepository.updateScore).toBeCalledWith(
