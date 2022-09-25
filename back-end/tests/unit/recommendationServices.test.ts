@@ -5,6 +5,9 @@ import { recommendationRepository } from "../../src/repositories/recommendationR
 import {
   orderedRecommendation,
   allRecommendation,
+  validRecommendationData,
+  dataForRandomLessThan10,
+  dataForRandomGreaterThan10,
 } from "../factories/recommendationFactory";
 
 jest.mock("../../src/repositories/recommendationRepository");
@@ -82,17 +85,18 @@ describe("POST: create recommendation", () => {
 
 describe("POST: upvote recommendations ", () => {
   it("should call repository to increase recommendation score", async () => {
+    const createRecommendation = await validRecommendationData();
     const recommendation = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: 0,
     };
 
     const upvoteRec = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: 1,
     };
     jest
@@ -138,17 +142,18 @@ describe("POST: downvote recommendations", () => {
   });
 
   it("downvote", async () => {
+    const createRecommendation = await validRecommendationData();
     const recommendation = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: 1,
     };
 
     const downvoteRec = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: 0,
     };
     jest
@@ -167,17 +172,18 @@ describe("POST: downvote recommendations", () => {
   });
 
   it("remove if downvote and score < -5", async () => {
+    const createRecommendation = await validRecommendationData();
     const recommendation = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: -6,
     };
 
     const downvoteRec = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: -7,
     };
     jest
@@ -203,10 +209,11 @@ describe("POST: downvote recommendations", () => {
 
 describe("GET: recommendation with id", () => {
   it("should return especific recommendation", async () => {
+    const createRecommendation = await validRecommendationData();
     const recommendation = {
       id: 1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: 1,
     };
     jest
@@ -220,10 +227,11 @@ describe("GET: recommendation with id", () => {
   });
 
   it("should return error for recommendation with invalid id", async () => {
+    const createRecommendation = await validRecommendationData();
     const recommendation = {
       id: -1,
-      name: "Teste",
-      youtubeLink: "https://youtu.be/IW0xruff7Hc?list=RDIW0xruff7Hc",
+      name: createRecommendation.name,
+      youtubeLink: createRecommendation.youtubeLink,
       score: 1,
     };
     jest.spyOn(recommendationRepository, "find").mockResolvedValue(null);
@@ -237,7 +245,7 @@ describe("GET: recommendation with id", () => {
 
 describe("GET: random recommendation", () => {
   it("should get random recommendation (score greater than 10)", async () => {
-    const recommendation = allRecommendation();
+    const recommendation = await dataForRandomGreaterThan10();
 
     jest
       .spyOn(recommendationRepository, "findAll")
@@ -247,14 +255,31 @@ describe("GET: random recommendation", () => {
     const result = await recommendationService.getRandom();
     expect(result).toBeInstanceOf(Object);
     expect(recommendation).toContain(result);
+    expect(result.score).toBeGreaterThan(10);
     expect(recommendationRepository.findAll).toBeCalledWith({
       score: 10,
       scoreFilter: "gt",
     });
   });
 
+  it("should get random recommendation after aplying greater then 10 filter and not finding recommendations above score 10 ", async () => {
+    const recommendation = await dataForRandomLessThan10();
+    jest
+      .spyOn(recommendationRepository, "findAll")
+      .mockResolvedValueOnce([])
+      .mockResolvedValueOnce(recommendation);
+    jest.spyOn(global.Math, "random").mockReturnValue(0.6);
+    const result = await recommendationService.getRandom();
+    expect(recommendationRepository.findAll).toBeCalledWith({
+      score: 10,
+      scoreFilter: "gt",
+    });
+    expect(recommendationRepository.findAll).toBeCalledTimes(2);
+    expect(recommendation).toContain(result);
+  });
+
   it("should get random recommendation (score less than or equal 10)", async () => {
-    const recommendation = allRecommendation();
+    const recommendation = await dataForRandomLessThan10();
 
     jest
       .spyOn(recommendationRepository, "findAll")
@@ -264,10 +289,27 @@ describe("GET: random recommendation", () => {
     const result = await recommendationService.getRandom();
     expect(result).toBeInstanceOf(Object);
     expect(recommendation).toContain(result);
+    expect(result.score).toBeLessThanOrEqual(10);
     expect(recommendationRepository.findAll).toBeCalledWith({
       score: 10,
       scoreFilter: "lte",
     });
+  });
+
+  it("should get random recommendation after aplying less then or equal 10 filter and not finding recommendations bellow score 10 ", async () => {
+    const recommendation = await dataForRandomGreaterThan10();
+    jest
+      .spyOn(recommendationRepository, "findAll")
+      .mockResolvedValueOnce([])
+      .mockResolvedValueOnce(recommendation);
+    jest.spyOn(global.Math, "random").mockReturnValue(0.8);
+    const result = await recommendationService.getRandom();
+    expect(recommendationRepository.findAll).toBeCalledWith({
+      score: 10,
+      scoreFilter: "lte",
+    });
+    expect(recommendationRepository.findAll).toBeCalledTimes(2);
+    expect(recommendation).toContain(result);
   });
 
   it("should return not found if there are no recommendations", async () => {

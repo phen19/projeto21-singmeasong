@@ -88,3 +88,39 @@ export async function insertAllRecommendation() {
   const orderedRecommendation = recommendations.sort((a, b) => b.id - a.id);
   return { insertedRecommendations, orderedRecommendation, recommendations };
 }
+
+export async function dataForRandomLessThan10() {
+  let recommendations = [];
+  for (let i = 0; i < 10; i++) {
+    const recommendation = {
+      id: i + 1,
+      name: faker.music.songName(),
+      youtubeLink: `https://www.youtube.com/watch?v=${faker.random.alphaNumeric(
+        10
+      )}`,
+      score: faker.datatype.number(10),
+    };
+
+    recommendations.push(recommendation);
+  }
+
+  return recommendations;
+}
+
+export async function dataForRandomGreaterThan10() {
+  let recommendations = [];
+  for (let i = 0; i < 10; i++) {
+    const recommendation = {
+      id: i + 1,
+      name: faker.music.songName(),
+      youtubeLink: `https://www.youtube.com/watch?v=${faker.random.alphaNumeric(
+        10
+      )}`,
+      score: faker.datatype.number({ min: 11 }),
+    };
+
+    recommendations.push(recommendation);
+  }
+
+  return recommendations;
+}
