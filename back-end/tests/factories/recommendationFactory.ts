@@ -2,37 +2,165 @@ import { faker } from "@faker-js/faker";
 import { prisma } from "../../src/database.js";
 
 export function allRecommendation() {
-  let recommendations = [];
-  for (let i = 0; i < 10; i++) {
-    const recommendation = {
-      id: i + 1,
-      name: faker.music.songName(),
-      youtubeLink: `https://www.youtube.com/watch?v=${faker.random.alphaNumeric(
-        10
-      )}`,
-      score: faker.datatype.number(500),
-    };
-
-    recommendations.push(recommendation);
-  }
-
+  const recommendations = [
+    {
+      id: 1,
+      name: "BALAZUL",
+      youtubeLink: "https://www.youtube.com/watch?v=HVtE2rcJ5yk",
+      score: 10,
+    },
+    {
+      id: 2,
+      name: "SEM DÓ",
+      youtubeLink: "https://www.youtube.com/watch?v=G-zyOLsfEBQ&",
+      score: 11,
+    },
+    {
+      id: 3,
+      name: "TAVABOM",
+      youtubeLink: "https://www.youtube.com/watch?v=Z1WV8Q-wgKQ",
+      score: 20,
+    },
+    {
+      id: 4,
+      name: "Tiffany",
+      youtubeLink: "https://www.youtube.com/watch?v=iOM20kM2gOQ",
+      score: 16,
+    },
+    {
+      id: 5,
+      name: "Paypal",
+      youtubeLink: "https://www.youtube.com/watch?v=DsdjqBfTpaI",
+      score: 7,
+    },
+    {
+      id: 6,
+      name: "Mustang Preto",
+      youtubeLink: "https://www.youtube.com/watch?v=iDJM3HTdjck&",
+      score: 3,
+    },
+    {
+      id: 7,
+      name: "INDUSTRY BABY",
+      youtubeLink: "https://www.youtube.com/watch?v=eg-AwKRUFec",
+      score: 5,
+    },
+    {
+      id: 8,
+      name: "M4",
+      youtubeLink: "https://www.youtube.com/watch?v=DHYd4EyCE9M",
+      score: 0,
+    },
+    {
+      id: 9,
+      name: "SICKO MODE",
+      youtubeLink: "https://www.youtube.com/watch?v=6ONRf7h3Mdk",
+      score: -1,
+    },
+    {
+      id: 10,
+      name: "Kenny G",
+      youtubeLink:
+        "https://www.youtube.com/watch?v=b-PhvPKgWjY&list=RDHVtE2rcJ5yk",
+      score: 0,
+    },
+  ];
   return recommendations;
 }
 
 export function allRecommendationLargerThan10() {
-  let recommendations = [];
-  for (let i = 0; i < 15; i++) {
-    const recommendation = {
-      id: i + 1,
-      name: faker.music.songName(),
-      youtubeLink: `https://www.youtube.com/watch?v=${faker.random.alphaNumeric(
-        10
-      )}`,
-      score: faker.datatype.number(500),
-    };
-
-    recommendations.push(recommendation);
-  }
+  const recommendations = [
+    {
+      id: 1,
+      name: "BALAZUL",
+      youtubeLink: "https://www.youtube.com/watch?v=HVtE2rcJ5yk",
+      score: 10,
+    },
+    {
+      id: 2,
+      name: "SEM DÓ",
+      youtubeLink: "https://www.youtube.com/watch?v=G-zyOLsfEBQ&",
+      score: 11,
+    },
+    {
+      id: 3,
+      name: "TAVABOM",
+      youtubeLink: "https://www.youtube.com/watch?v=Z1WV8Q-wgKQ",
+      score: 20,
+    },
+    {
+      id: 4,
+      name: "Tiffany",
+      youtubeLink: "https://www.youtube.com/watch?v=iOM20kM2gOQ",
+      score: 16,
+    },
+    {
+      id: 5,
+      name: "Paypal",
+      youtubeLink: "https://www.youtube.com/watch?v=DsdjqBfTpaI",
+      score: 7,
+    },
+    {
+      id: 6,
+      name: "Mustang Preto",
+      youtubeLink: "https://www.youtube.com/watch?v=iDJM3HTdjck&",
+      score: 3,
+    },
+    {
+      id: 7,
+      name: "INDUSTRY BABY",
+      youtubeLink: "https://www.youtube.com/watch?v=eg-AwKRUFec",
+      score: 5,
+    },
+    {
+      id: 8,
+      name: "M4",
+      youtubeLink: "https://www.youtube.com/watch?v=DHYd4EyCE9M",
+      score: 0,
+    },
+    {
+      id: 9,
+      name: "SICKO MODE",
+      youtubeLink: "https://www.youtube.com/watch?v=6ONRf7h3Mdk",
+      score: -1,
+    },
+    {
+      id: 10,
+      name: "Kenny G",
+      youtubeLink: "https://www.youtube.com/watch?v=b-PhvPKgWjY",
+      score: 0,
+    },
+    {
+      id: 11,
+      name: "FREIO DA BLAZER",
+      youtubeLink: "https://www.youtube.com/watch?v=0qYWvuVp-0Q",
+      score: 20,
+    },
+    {
+      id: 12,
+      name: "Dia Azul",
+      youtubeLink: "https://www.youtube.com/watch?v=5kyPzVuiFgU",
+      score: 12,
+    },
+    {
+      id: 13,
+      name: "Fim de Semana no Rio",
+      youtubeLink: "https://www.youtube.com/watch?v=7AlAYttGnAg",
+      score: 16,
+    },
+    {
+      id: 14,
+      name: "Anos luz",
+      youtubeLink: "https://www.youtube.com/watch?v=m226f2reF28&",
+      score: 15,
+    },
+    {
+      id: 15,
+      name: "Máquina do Tempo",
+      youtubeLink: "https://www.youtube.com/watch?v=ZPcG9PCfagM",
+      score: 19,
+    },
+  ];
 
   return recommendations;
 }

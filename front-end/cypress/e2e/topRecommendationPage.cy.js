@@ -41,6 +41,6 @@ describe(`Test top recommendation pages`, () => {
         let secondScore = 0
         cy.get('[data-test-id=score]').eq(1).invoke('text').then((text)=> {
             secondScore =Number(text);
-            cy.get('[data-test-id=score]').eq(0).invoke('text').then(parseInt).should("be.gt", secondScore)})
+            cy.get('[data-test-id=score]').eq(0).invoke('text').then(parseInt).should("be.gte", secondScore)})
     })
 })
