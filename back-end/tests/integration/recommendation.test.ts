@@ -3,6 +3,7 @@ import supertest from "supertest";
 import { prisma } from "../../src/database";
 import {
   emptyFields,
+  getRandomInt,
   insertAllRecommendation,
   insertRecommendation,
   invalidJoi,
@@ -103,8 +104,11 @@ describe("GET /recommendations/random", () => {
 describe("GET /recommendations/top/:amount", () => {
   it("should return 200 with body with top X recommendations", async () => {
     const { recommendations } = await insertAllRecommendation();
-    const AMOUNT: number = Math.floor(Math.random() * 10) + 1;
-
+    const AMOUNT: number = getRandomInt(
+      2,
+      10
+    ); /* Math.floor(Math.random() * 10) + 1 */
+    console.log(AMOUNT);
     const result = await supertest(app).get(`/recommendations/top/${AMOUNT}`);
     expect(result.status).toBe(200);
     expect(result.body.length).toBe(AMOUNT);
@@ -113,6 +117,7 @@ describe("GET /recommendations/top/:amount", () => {
     expect(result.body[0]).toHaveProperty("name");
     expect(result.body[0]).toHaveProperty("youtubeLink");
     expect(result.body[0]).toHaveProperty("score");
+    expect(result.body[0].score).toBeGreaterThanOrEqual(result.body[1].score);
   });
 });
 
