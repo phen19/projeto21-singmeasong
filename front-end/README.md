@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# projeto21-singmeasong
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img  src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f399-fe0f.svg" height="300px">
+</p>
+<h1 align="center">
+  Sing Me a Song
+</h1>
+<h2 align="center">
+Sing me a song é uma aplicação para recomendação anônima de músicas. Quanto mais as pessoas curtirem uma recomendação, maior a chance dela ser recomendada para outras pessoas 🙂
+</h2>
+<div align="center">
 
-## Available Scripts
+  <h3>Built With</h3>
 
-In the project directory, you can run:
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" height="30px"/>
+  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" height="30px"/>
+  <img src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=for-the-badge&color=informational' height="30px">
+  <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" height="30px"/>
+  <img src='https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white' height="30px" />
 
-### `npm start`
+  <!-- Badges source: https://dev.to/envoy_/150-badges-for-github-pnk -->
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Features implementadas:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    Criar nova recomendação
+    Like ou dislike (upvote ou downvote)
+    Lista com as recomendações com os scores mais altos
+    Recomendação aleatório
 
-### `npm test`
+## Como rodar o projeto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. CLonar o repositório
 
-### `npm run build`
+```
+git clone git@github.com:phen19/projeto21-singmeasong
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Entrar no repositório
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+ cd projeto21-singmeasong/front-end
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Instalar as dependências
 
-### `npm run eject`
+```
+npm i
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Iniciar projeto com o comando
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Opcionalmente, poderá realizar a build do projeto com o comando
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+npm run build
+```
 
-## Learn More
+6. Por fim, acessar o endereço `http://localhost:3000` no seu navegador (número da porta pode variar)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+:star: As requisições são feitar para uma URL que precisa ser inserida em uma variável de ambiente no arquivo `.env` (vide arquivo `.env.example`)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+:star: O back-end deste projeto está neste mesmo repositório, na pasta back-end, disponível neste <a href='https://github.com/phen19/projeto21-singmeasong/tree/main/back-end' target='_blank'>link</a>. No link é possível ver a configuração e os comandos necessários para rodar o back-end.
 
-### Code Splitting
+## Para rodar os testes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Execute o cypress
 
-### Analyzing the Bundle Size
+```bash
+npx cypress open
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Esse comando irá abrir a janela do cypress, onde será possível executar todos os testes E2E
