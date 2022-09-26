@@ -2,6 +2,10 @@ beforeEach(async () => {
     await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
   });
 
+after(async () => {
+    await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
+});
+
 describe('Test upvote recommendation', () => {
     it('should upvote recommendation', ()=> {
         cy.visit('http://localhost:3000/');

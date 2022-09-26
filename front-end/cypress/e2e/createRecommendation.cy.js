@@ -4,6 +4,10 @@ beforeEach(async () => {
   await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
 });
 
+after(async () => {
+  await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
+});
+
 describe('Test create recommendation', () => {
   it('Test if create a recommendtation', () => {
     const recommendation = {

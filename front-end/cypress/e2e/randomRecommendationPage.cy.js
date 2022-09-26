@@ -2,6 +2,10 @@ beforeEach(async () => {
     await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
 });
 
+after(async () => {
+    await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
+});
+
 describe(`Test redirect links`, () => {
     it("should go to home page", () => {
         cy.visit('http://localhost:3000/random')
@@ -22,7 +26,7 @@ describe(`Test redirect links`, () => {
     })
 
     it("should get a random recommendation", () => {
-        cy.request('POST', 'http://localhost:5000/e2e/populate', {});
+        cy.request('POST', 'http://localhost:5000/e2e/populate', {}); // create 15 recommendations in db
         cy.visit('http://localhost:3000/random')
         cy.intercept("GET", "http://localhost:5000/recommendations/random").as("getRandom")
         cy.wait('@getRandom')
