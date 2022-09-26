@@ -38,5 +38,9 @@ describe(`Test redirect links`, () => {
         cy.intercept("GET", "http://localhost:5000/recommendations/top/10").as("getTop10")
         cy.wait('@getTop10')
         cy.get('[data-test-id=recommendation]').should("have.length.lessThan", 11)
+        let secondScore = 0
+        cy.get('[data-test-id=score]').eq(1).invoke('text').then((text)=> {
+            secondScore =Number(text);
+            cy.get('[data-test-id=score]').eq(0).invoke('text').then(parseInt).should("be.gt", secondScore)})
     })
 })
