@@ -221,7 +221,7 @@ export async function insertAllRecommendation() {
   const insertedRecommendations = await prisma.$transaction(
     recommendations.map((cur, index) =>
       prisma.recommendation.upsert({
-        where: { id: cur.id },
+        where: { id: index + 1 },
         update: {},
         create: {
           name: cur.name,
@@ -236,7 +236,7 @@ export async function insertAllRecommendation() {
 }
 
 export async function dataForRandomLessThan10() {
-  let recommendations = [];
+  const recommendations = [];
   for (let i = 0; i < 10; i++) {
     const recommendation = {
       id: i + 1,
@@ -254,7 +254,7 @@ export async function dataForRandomLessThan10() {
 }
 
 export async function dataForRandomGreaterThan10() {
-  let recommendations = [];
+  const recommendations = [];
   for (let i = 0; i < 10; i++) {
     const recommendation = {
       id: i + 1,

@@ -13,22 +13,36 @@ describe('Test downvote recommendation', () => {
         cy.createRecommendation()
         cy.intercept("GET", "http://localhost:5000/recommendations").as("refreshRecommendations")
         cy.wait("@refreshRecommendations");
+        let score
+        cy.get('[data-test-id=score]').eq(0).invoke('text').then((text)=> {
+            score =Number(text);})
         cy.get('[data-test-id=downvote]').click()
-        cy.get('[data-test-id=score]').should('contain.text', -1)
+        cy.get('[data-test-id=score]').eq(0).invoke('text').then((text)=> {
+            expect(Number(text)).to.be.equal(score-1)})
+
     })
 
     it('should downvote recommendation in top page', ()=> {
         cy.visit('http://localhost:3000/top');
         cy.createRecommendation()
+        let score
+        cy.get('[data-test-id=score]').eq(0).invoke('text').then((text)=> {
+            score =Number(text);})
         cy.get('[data-test-id=downvote]').click()
-        cy.get('[data-test-id=score]').should('contain.text', -1)
+        cy.get('[data-test-id=score]').eq(0).invoke('text').then((text)=> {
+            expect(Number(text)).to.be.equal(score-1)})
     })
 
     it('should downvote recommendation in random page', ()=> {
         cy.visit('http://localhost:3000/random');
         cy.createRecommendation()
+        let score
+        cy.get('[data-test-id=score]').eq(0).invoke('text').then((text)=> {
+            score =Number(text);})
         cy.get('[data-test-id=downvote]').click()
-        cy.get('[data-test-id=score]').should('contain.text', -1)
+        cy.wait(2000)
+        cy.get('[data-test-id=score]').eq(0).invoke('text').then((text)=> {
+            expect(Number(text)).to.be.equal(score-1)})
     })
 
     it('should remove recommendation if downvote put score bellow -5', () => {
