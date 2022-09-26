@@ -6,7 +6,7 @@ after(async () => {
     await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
 });
 
-describe(`Test redirect links`, () => {
+describe(`Test random recommendation page`, () => {
     it("should go to home page", () => {
         cy.visit('http://localhost:3000/random')
         cy.contains('Home').click();
