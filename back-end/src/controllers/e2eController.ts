@@ -5,3 +5,8 @@ export async function reset(req: Request, res: Response) {
   await e2eService.truncate();
   res.sendStatus(200);
 }
+
+export async function populate(req: Request, res: Response) {
+  await e2eService.populate();
+  res.sendStatus(201);
+}

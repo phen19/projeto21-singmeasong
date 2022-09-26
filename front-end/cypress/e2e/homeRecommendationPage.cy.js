@@ -27,4 +27,13 @@ describe(`Test redirect links`, () => {
         cy.wait('@getRecommendations')
         cy.contains("No recommendations yet! Create your own :)").should("be.visible")
     })
+
+
+    it("should get the last 10 recommendations", () => {
+        cy.request('POST', 'http://localhost:5000/e2e/populate', {});
+        cy.visit('http://localhost:3000/')
+        cy.intercept("GET", "http://localhost:5000/recommendations").as("getRecommendations")
+        cy.wait('@getRecommendations')
+        cy.get('[data-test-id=recommendation]').should("have.length.lessThan", 11)
+    })
 })

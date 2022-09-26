@@ -1,9 +1,27 @@
 import { faker } from "@faker-js/faker";
-import { prisma } from "../../src/database";
+import { prisma } from "../../src/database.js";
 
 export function allRecommendation() {
   let recommendations = [];
   for (let i = 0; i < 10; i++) {
+    const recommendation = {
+      id: i + 1,
+      name: faker.music.songName(),
+      youtubeLink: `https://www.youtube.com/watch?v=${faker.random.alphaNumeric(
+        10
+      )}`,
+      score: faker.datatype.number(500),
+    };
+
+    recommendations.push(recommendation);
+  }
+
+  return recommendations;
+}
+
+export function allRecommendationLargerThan10() {
+  let recommendations = [];
+  for (let i = 0; i < 15; i++) {
     const recommendation = {
       id: i + 1,
       name: faker.music.songName(),

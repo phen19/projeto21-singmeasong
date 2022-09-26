@@ -21,4 +21,12 @@ describe(`Test redirect links`, () => {
         cy.url().should('equal', 'http://localhost:3000/random');
     })
 
+    it("should get a random recommendation", () => {
+        cy.request('POST', 'http://localhost:5000/e2e/populate', {});
+        cy.visit('http://localhost:3000/random')
+        cy.intercept("GET", "http://localhost:5000/recommendations/random").as("getRandom")
+        cy.wait('@getRandom')
+        cy.get('[data-test-id=recommendation]').should("have.length", 1)
+    })
+
 })

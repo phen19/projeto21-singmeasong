@@ -1,6 +1,6 @@
 beforeEach(async () => {
     await cy.request('POST', 'http://localhost:5000/e2e/reset', {});
-});
+  });
 
 describe(`Test redirect links`, () => {
     it("should go to home page", () => {
@@ -26,5 +26,13 @@ describe(`Test redirect links`, () => {
         cy.intercept("GET", "http://localhost:5000/recommendations/top/10").as("getTop10")
         cy.wait('@getTop10')
         cy.contains("No recommendations yet! Create your own :)").should("be.visible")
+    })
+
+    it("should get 10 recommendations with highest scores", () => {
+        cy.request('POST', 'http://localhost:5000/e2e/populate', {});
+        cy.visit('http://localhost:3000/top')
+        cy.intercept("GET", "http://localhost:5000/recommendations/top/10").as("getTop10")
+        cy.wait('@getTop10')
+        cy.get('[data-test-id=recommendation]').should("have.length.lessThan", 10)
     })
 })

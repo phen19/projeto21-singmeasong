@@ -4,5 +4,6 @@ import * as e2eController from "../controllers/e2eController.js";
 const e2eRouter = Router();
 
 e2eRouter.post("/e2e/reset", e2eController.reset);
+e2eRouter.post("/e2e/populate", e2eController.populate);
 
 export default e2eRouter;
