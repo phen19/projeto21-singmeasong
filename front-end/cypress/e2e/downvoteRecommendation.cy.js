@@ -26,4 +26,13 @@ describe('Test downvote recommendation', () => {
         cy.get('[data-test-id=downvote]').click()
         cy.get('[data-test-id=score]').should('contain.text', -1)
     })
+
+    it('should remove recommendation if downvote put score bellow -5', () => {
+        cy.visit('http://localhost:3000/');
+        cy.createRecommendation()
+        for(let i=0; i<6; i++){
+            cy.get('[data-test-id=downvote]').click()
+        }
+        cy.get('[data-test-id=score]').should("not.exist")
+    })
 })
